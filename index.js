@@ -1,3 +1,5 @@
+var digits = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+
 var clock = {
   getTimeArray: function() {
     var date = new Date();
@@ -9,31 +11,44 @@ var clock = {
   },
 
   onTick: function() {
-    setInterval(function() { observable.update(clock.getTimeArray()); }, 1000);
+    setInterval(function() {
+      topicA.update();
+      topicB.update();
+    }, 1000);
   },
 };
 
-var observable = {
-  update: function(time) {
-    digitalClock.init(time);
+var topicA = {
+  members: [],
+
+  update: function() {
+    this.members.forEach(function(member){
+      member.init();
+    });
+  },
+
+  createSubscriber: function(subscriber) {
+    this.members.push(subscriber);
+  },
+};
+
+var topicB = {
+  members: [],
+
+  update: function() {
+    this.members.forEach(function(member){
+      member.init();
+    });
+  },
+
+  createSubscriber: function(subscriber) {
+    this.members.push(subscriber);
   },
 };
 
 var digitalClock = {
-
-  digits: [
-    'zero',
-    'one',
-    'two',
-    'three',
-    'four',
-    'five',
-    'six',
-    'seven',
-    'eight',
-    'nine'],
-
-  init: function(time) {
+  init: function() {
+    var time = clock.getTimeArray();
     this.drawDigits(document.getElementsByClassName('hour'), time[0]);
     this.drawDigits(document.getElementsByClassName('minute'), time[1]);
     this.drawDigits(document.getElementsByClassName('second'), time[2]);
@@ -43,9 +58,19 @@ var digitalClock = {
     var ten = Math.floor(digit / 10);
     var one = Math.floor(digit % 10);
 
-    element[0].innerHTML = '<span class="digit ' + this.digits[ten] +
-        '"></span><span class="digit ' + this.digits[one] + '"></span>';
+    element[0].innerHTML = '<span class="digit ' + digits[ten] +
+        '"></span><span class="digit ' + digits[one] + '"></span>';
   },
 };
 
+var consoleClock = {
+  init: function() {
+    var time = clock.getTimeArray();
+    console.log(time);
+  },
+}
+
+topicA.createSubscriber(digitalClock);
+topicA.createSubscriber(consoleClock);
+topicB.createSubscriber(consoleClock);
 clock.onTick();

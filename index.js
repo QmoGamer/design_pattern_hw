@@ -1,76 +1,58 @@
-var digits = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
-
-var clock = {
-  getTimeArray: function() {
-    var date = new Date();
-    return [
-      date.getHours(),
-      date.getMinutes(),
-      date.getSeconds(),
-      date.getMilliseconds()];
+var builder = {
+  buildCPU: function() {
+    console.log('組裝CPU...');
+    computer.item.push('CPU');
+    // document.getElementById("msg").appendChild(document.createElement('div').innerHTML = '123');
   },
 
-  onTick: function() {
-    setInterval(function() {
-      topicA.update();
-      topicB.update();
-    }, 1000);
-  },
-};
-
-var topicA = {
-  members: [],
-
-  update: function() {
-    this.members.forEach(function(member){
-      member.init();
-    });
+  buildMB: function() {
+    console.log('組裝主機板...');
+    computer.item.push('主機板');
+    document.getElementById("msg").textContent = '123';
   },
 
-  createSubscriber: function(subscriber) {
-    this.members.push(subscriber);
-  },
-};
-
-var topicB = {
-  members: [],
-
-  update: function() {
-    this.members.forEach(function(member){
-      member.init();
-    });
+  buildPSU: function() {
+    console.log('組裝電源供應器...');
+    computer.item.push('電源供應器');
   },
 
-  createSubscriber: function(subscriber) {
-    this.members.push(subscriber);
-  },
-};
-
-var digitalClock = {
-  init: function() {
-    var time = clock.getTimeArray();
-    this.drawDigits(document.getElementsByClassName('hour'), time[0]);
-    this.drawDigits(document.getElementsByClassName('minute'), time[1]);
-    this.drawDigits(document.getElementsByClassName('second'), time[2]);
+  buildKB: function() {
+    console.log('組裝鍵盤...');
+    computer.item.push('鍵盤');
   },
 
-  drawDigits: function(element, digit) {
-    var ten = Math.floor(digit / 10);
-    var one = Math.floor(digit % 10);
-
-    element[0].innerHTML = '<span class="digit ' + digits[ten] +
-        '"></span><span class="digit ' + digits[one] + '"></span>';
-  },
-};
-
-var consoleClock = {
-  init: function() {
-    var time = clock.getTimeArray();
-    console.log(time);
-  },
+  buildMouse: function() {
+    console.log('組裝滑鼠...');
+    computer.item.push('滑鼠');
+  }
 }
 
-topicA.createSubscriber(digitalClock);
-topicA.createSubscriber(consoleClock);
-topicB.createSubscriber(consoleClock);
-clock.onTick();
+var computer = {
+  build: function() {
+    builder.buildCPU();
+    builder.buildMB();
+    builder.buildPSU();
+    builder.buildKB();
+    builder.buildMouse();
+  },
+
+  item: [],
+}
+
+var product = {
+  buildComputer: function() {
+    computer.build();
+  },
+
+  show: function() {
+    console.log(computer.item);
+  }
+}
+
+function getComputer() {
+  product.buildComputer();
+}
+
+function showComputer() {
+  product.show();
+}

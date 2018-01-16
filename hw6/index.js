@@ -13,18 +13,17 @@ var extend = function() {
   return extended;
 };
 
-//https://github.com/htshiang/DesignPatterns/blob/master/07.AbstractFactory/src/%E7%B6%B2%E9%A0%81%E5%B7%A5%E5%BB%A0/src/designpattern/abstractfactory/demo/Main.java
 
 var abstractComponent = {
-  name: 'default'
+  name: 'default',
+
+  abstractRenderHtml: function () {}
 };
 
 var abstractContainer = {
   items: [],
 
-  add: function(item) {
-    this.items.push(item);
-  },
+  abstractAdd: function(item) {},
 };
 
 var abstractFactory = {
@@ -32,9 +31,10 @@ var abstractFactory = {
   abstractGetFactory: function(name) {
     switch (name) {
       case 'pokemon':
-
+        return extend(abstractFactory, pokemonFactory);
         break;
       case 'warcraft':
+        return extend(abstractFactory, warcraftFactory);
         break;
       default :
         appendMsg('沒有找到任何工廠');
@@ -42,118 +42,85 @@ var abstractFactory = {
     }
   },
 
-  abstractShowItem: function() {
+  abstractNewComponent: function() {},
 
-  },
+  abstractAdd: function(item) {},
+
+  abstractRenderHtml: function () {},
 };
 
 var pokemonFactory = {
-  Armor: abstractComponent.name = '小智帽',
-  Weapon: abstractComponent.name = '寶貝球',
 
-  items: abstractContainer.items,
+  abstractNewComponent: function(item) {
+    return extend(abstractComponent, {name: item});
+  },
 
-  // add: abstractContainer.add(this.Armor),
+  abstractNewContainer: function(container) {
+    var newContainer = extend(abstractContainer, {items: []});
+    newContainer.abstractAdd = function(item) {
+      this.items.push(item);
+    }
+    return newContainer;
+  },
+
+  abstractRenderHtml: function() {
+    this.items.forEach(function(t) {
+      appendMsg('帶上' + t.name + ' !');
+    });
+    appendMsg('變裝完成 !');
+  },
 };
 
-// pokemonFactory.add();
-var pokemonFactory = extend(pokemonFactory, abstractFactory);
-console.log(pokemonFactory);
-console.log(abstractFactory);
-
-// abstractFactory.getFactory('1');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var builder = {
-  buildCPU: function() {
-    console.log('組裝CPU...');
-    computer.item.push('CPU');
-    appendMsg('組裝CPU...');
-  },
-
-  buildMB: function() {
-    console.log('組裝主機板...');
-    computer.item.push('主機板');
-    appendMsg('組裝主機板...');
-  },
-
-  buildPSU: function() {
-    console.log('組裝電源供應器...');
-    computer.item.push('電源供應器');
-    appendMsg('組裝電源供應器...');
-  },
-
-  buildKB: function() {
-    console.log('組裝鍵盤...');
-    computer.item.push('鍵盤');
-    appendMsg('組裝鍵盤...');
-  },
-
-  buildMouse: function() {
-    console.log('組裝滑鼠...');
-    computer.item.push('滑鼠');
-    appendMsg('組裝滑鼠...');
-  }
-}
-
-var computer = {
-  build: function() {
-    builder.buildCPU();
-    builder.buildMB();
-    builder.buildPSU();
-    builder.buildKB();
-    builder.buildMouse();
-    appendMsg('組裝完成 !');
-  },
-
-  item: [],
-}
-
-var product = {
-  buildComputer: function() {
-    computer.build();
-  },
-
-  show: function() {
-    console.log(computer.item);
-    document.getElementById("msg").innerHTML = '';
-    if( computer.item.length > 0) {
-      computer.item.forEach(function(t) {
-        appendMsg('您的電腦有' + t + ' !');
+var warcraftFactory = {
+  
+    abstractNewComponent: function(item) {
+      return extend(abstractComponent, {name: item});
+    },
+  
+    abstractNewContainer: function(container) {
+      var newContainer = extend(abstractContainer, {items: []});
+      newContainer.abstractAdd = function(item) {
+        this.items.push(item);
+      }
+      return newContainer;
+    },
+  
+    abstractRenderHtml: function() {
+      this.items.forEach(function(t) {
+        appendMsg('裝上' + t.name + ' !');
       });
-      appendMsg('感謝您的購買 !');
-    }
-  }
-}
-
-function getComputer() {
-  product.buildComputer();
-}
-
-function showComputer() {
-  product.show();
-}
+      appendMsg('變裝完成 !');
+    },
+  };
 
 function appendMsg(str) {
   var ele = document.createElement('div');
   ele.innerHTML = str;
   document.getElementById("msg").appendChild(ele);
+}
+
+/** cos pokemon */
+function cosPokemon() {
+  document.getElementById("msg").innerHTML = '';
+  var pokemon = abstractFactory.abstractGetFactory('pokemon');
+  var pokemonHat = pokemon.abstractNewComponent('小智帽');
+  var pokemonWeapon = pokemon.abstractNewComponent('寶貝球');
+  var pokemonBox = pokemon.abstractNewContainer();
+  pokemonBox.abstractAdd(pokemonHat);
+  pokemonBox.abstractAdd(pokemonWeapon);
+  pokemon = extend(pokemonBox, pokemon);
+  pokemon.abstractRenderHtml();
+}
+
+/** cos warcraft */
+function cosWarcraft() {
+  document.getElementById("msg").innerHTML = '';
+  var warcraft = abstractFactory.abstractGetFactory('warcraft');
+  var warcraftArmor = warcraft.abstractNewComponent('霜之鎧甲');
+  var warcraftWeapon = warcraft.abstractNewComponent('霜之哀傷');
+  var warcraftBox = warcraft.abstractNewContainer();
+  warcraftBox.abstractAdd(warcraftArmor);
+  warcraftBox.abstractAdd(warcraftWeapon);
+  warcraft = extend(warcraftBox, warcraft);
+  warcraft.abstractRenderHtml();
 }

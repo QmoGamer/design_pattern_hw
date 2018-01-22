@@ -1,0 +1,82 @@
+<div style="text-align: center;">
+  <div class="hour">
+    <span class="digit" [ngClass]="{
+      'zero': this.mathFloor((now.getHours() / 10)) === 0,
+      'one': this.mathFloor((now.getHours() / 10)) === 1,
+      'two': this.mathFloor((now.getHours() / 10)) === 2,
+      'three': this.mathFloor((now.getHours() / 10)) === 3,
+      'four': this.mathFloor((now.getHours() / 10)) === 4,
+      'five': this.mathFloor((now.getHours() / 10)) === 5,
+      'six': this.mathFloor((now.getHours() / 10)) === 6,
+      'seven': this.mathFloor((now.getHours() / 10)) === 7,
+      'eight': this.mathFloor((now.getHours() / 10)) === 8,
+      'nine': this.mathFloor((now.getHours() / 10)) === 9
+    }"></span>
+    <span class="digit" [ngClass]="{
+      'zero': (now.getHours() % 10) === 0,
+      'one': (now.getHours() % 10) === 1,
+      'two': (now.getHours() % 10) === 2,
+      'three': (now.getHours() % 10) === 3,
+      'four': (now.getHours() % 10) === 4,
+      'five': (now.getHours() % 10) === 5,
+      'six': (now.getHours() % 10) === 6,
+      'seven': (now.getHours() % 10) === 7,
+      'eight': (now.getHours() % 10) === 8,
+      'nine': (now.getHours() % 10) === 9
+    }"></span>
+  </div>
+  <span class="colon"></span>
+  <div class="minute">
+    <span class="digit" [ngClass]="{
+      'zero': this.mathFloor((now.getMinutes() / 10)) === 0,
+      'one': this.mathFloor((now.getMinutes() / 10)) === 1,
+      'two': this.mathFloor((now.getMinutes() / 10)) === 2,
+      'three': this.mathFloor((now.getMinutes() / 10)) === 3,
+      'four': this.mathFloor((now.getMinutes() / 10)) === 4,
+      'five': this.mathFloor((now.getMinutes() / 10)) === 5,
+      'six': this.mathFloor((now.getMinutes() / 10)) === 6,
+      'seven': this.mathFloor((now.getMinutes() / 10)) === 7,
+      'eight': this.mathFloor((now.getMinutes() / 10)) === 8,
+      'nine': this.mathFloor((now.getMinutes() / 10)) === 9
+    }"></span>
+    <span class="digit" [ngClass]="{
+      'zero': (now.getMinutes() % 10) === 0,
+      'one': (now.getMinutes() % 10) === 1,
+      'two': (now.getMinutes() % 10) === 2,
+      'three': (now.getMinutes() % 10) === 3,
+      'four': (now.getMinutes() % 10) === 4,
+      'five': (now.getMinutes() % 10) === 5,
+      'six': (now.getMinutes() % 10) === 6,
+      'seven': (now.getMinutes() % 10) === 7,
+      'eight': (now.getMinutes() % 10) === 8,
+      'nine': (now.getMinutes() % 10) === 9
+    }"></span>
+  </div>
+  <span class="colon"></span>
+  <div class="second">
+    <span class="digit" [ngClass]="{
+      'zero': this.mathFloor((now.getSeconds() / 10)) === 0,
+      'one': this.mathFloor((now.getSeconds() / 10)) === 1,
+      'two': this.mathFloor((now.getSeconds() / 10)) === 2,
+      'three': this.mathFloor((now.getSeconds() / 10)) === 3,
+      'four': this.mathFloor((now.getSeconds() / 10)) === 4,
+      'five': this.mathFloor((now.getSeconds() / 10)) === 5,
+      'six': this.mathFloor((now.getSeconds() / 10)) === 6,
+      'seven': this.mathFloor((now.getSeconds() / 10)) === 7,
+      'eight': this.mathFloor((now.getSeconds() / 10)) === 8,
+      'nine': this.mathFloor((now.getSeconds() / 10)) === 9
+    }"></span>
+    <span class="digit" [ngClass]="{
+      'zero': (now.getSeconds() % 10) === 0,
+      'one': (now.getSeconds() % 10) === 1,
+      'two': (now.getSeconds() % 10) === 2,
+      'three': (now.getSeconds() % 10) === 3,
+      'four': (now.getSeconds() % 10) === 4,
+      'five': (now.getSeconds() % 10) === 5,
+      'six': (now.getSeconds() % 10) === 6,
+      'seven': (now.getSeconds() % 10) === 7,
+      'eight': (now.getSeconds() % 10) === 8,
+      'nine': (now.getSeconds() % 10) === 9
+    }"></span>
+  </div>
+</div>

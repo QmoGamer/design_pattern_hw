@@ -1,3 +1,13 @@
-<p>
-  order works!
-</p>
+<div><input type="number" placeholder="請輸入金額" [(ngModel)]="subtotal"></div>
+<br>
+<div>
+  <select [(ngModel)]="discountStrategy">
+    <option *ngFor="let strategy of strategies" [ngValue]="strategy">{{ strategy }}</option>
+  </select>
+</div>
+<br>
+<div><button (click)="submit()">送出</button></div>
+<br>
+<div>折扣金額: {{ discountAmount }}</div>
+<br>
+<div>總金額: {{ total }}</div>

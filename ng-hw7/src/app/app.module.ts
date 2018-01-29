@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { OrderComponent } from './order/order.component';
 import { GiftWithPurchaseAmountComponent } from './gift-with-purchase-amount/gift-with-purchase-amount.component';
 import { PercentOffComponent } from './percent-off/percent-off.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { PercentOffComponent } from './percent-off/percent-off.component';
     PercentOffComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

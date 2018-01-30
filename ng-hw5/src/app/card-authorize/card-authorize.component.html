@@ -1,0 +1,16 @@
+<br>
+<div>
+  <input placeholder="請輸入卡號" [(ngModel)]="cardNo">
+</div>
+<br>
+<div>
+  <select [(ngModel)]="selectbank">
+    <option *ngFor="let bank of banks" [ngValue]="bank">{{ bank }}</option>
+  </select>
+</div>
+<br>
+<div>
+  <button (click)="submit()">授權</button>
+</div>
+<br>
+<div>驗證: {{ value }}</div>
